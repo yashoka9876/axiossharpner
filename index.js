@@ -19,8 +19,8 @@ function addFrom(e){
     }
      
     showOnScreen(obj);
-    axios.post('https://crudcrud.com/api/685314f5337c4c72b4fa91e799818c43/appointmentDate',obj)
-    .then((response)=>showOnScreen(response))
+    axios.post('https://crudcrud.com/api/1f9dbdd059f544db81c0e94228b540b9/appointmentDate',obj)
+    .then((response)=>console.log(response))
     .catch(error=>console.log(error))
 
     email.value='';
@@ -29,7 +29,7 @@ function addFrom(e){
 }
 
 window.addEventListener('DOMContentLoaded',()=>{
-    axios.get('https://crudcrud.com/api/685314f5337c4c72b4fa91e799818c43/appointmentDate')
+    axios.get('https://crudcrud.com/api/1f9dbdd059f544db81c0e94228b540b9/appointmentDate')
     .then((response)=>{
         for(let i=0;i<response.data.length;i++){
             showOnScreen(response.data[i]);
@@ -49,13 +49,47 @@ function deleteElement(e){
 
         let att=e.target.getAttribute('id');
         
-        axios.delete('https://crudcrud.com/api/685314f5337c4c72b4fa91e799818c43/appointmentDate/'+att)
+        axios.delete('https://crudcrud.com/api/1f9dbdd059f544db81c0e94228b540b9/appointmentDate/'+att)
     .then((response)=>{
         console.log(response);
     })
     .catch(error=>console.log(error))
 
          ul.removeChild(parent);
+         
+    }
+}
+
+ul.addEventListener('click',updateElement);
+
+function updateElement(e){
+    if(e.target.classList.contains('edit')){
+        let parent=e.target.parentElement;
+
+         let str=parent.firstChild.textContent;
+         let arr=str.split(' - ');
+         document.getElementById('email').value=arr[0];
+         document.getElementById('name').value=arr[1];
+         document.getElementById('number').value=arr[2];
+
+
+
+
+        let text=parent.firstChild.textContent;
+
+
+
+        let att=e.target.getAttribute('id');
+        
+        axios.delete('https://crudcrud.com/api/1f9dbdd059f544db81c0e94228b540b9/appointmentDate/'+att)
+    .then((response)=>{
+        console.log(response);
+    })
+    .catch(error=>console.log(error))
+
+         ul.removeChild(parent);
+
+
          
     }
 }
